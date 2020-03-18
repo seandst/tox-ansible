@@ -1,8 +1,7 @@
 """Tox hook implementations."""
-from __future__ import print_function
 import os
 import sys
-from tox import hookimpl
+from tox import hookimpl, reporter
 from .ansible import Ansible
 from .tox_helper import Tox
 from .compat import TOX_PARALLEL_ENV
@@ -85,5 +84,5 @@ def tox_configure(config):
         config.envlist = list(config.envconfigs.keys())
     config.envlist_default = config.envlist
     if len(config.envlist) == 0:
-        print("****** No environments matched. This is a problem.")
+        reporter.skip('No environments matched ansible filters.')
         sys.exit(101)
